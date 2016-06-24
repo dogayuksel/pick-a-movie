@@ -1,0 +1,55 @@
+import * as actions from './actions';
+import { Record, Map, List, Seq } from 'immutable';
+
+const InitialState = Record({
+  list: List(),
+  details: Map(),
+  results: List()
+});
+
+const reviveList = list => list && Seq(list).map((value, key) => ({
+  imdb: key,
+  userMeta: Map(value)
+})).toList();
+
+const revive = ({ list, details, results }) =>
+  new InitialState({
+    list: reviveList(list),
+    details: Map(details),
+    results: List(results),
+  });
+
+export default function moviesReducer(state = new InitialState, action) {
+  if (!(state instanceof InitialState)) return revive(state);
+
+  switch (action.type) {
+
+    case actions.ON_MOVIES_LIST: {
+      const { list } = action.payload;
+      return state.set('list', reviveList(list));
+    }
+
+    case actions.ON_MOVIE_DETAILS: {
+      const { data, movieID } = action.payload;
+      const movie = {};
+      movie[movieID] = data;
+      return state.set('details', state.get('details').merge(Map(movie)));
+    }
+
+    case actions.SEARCH_MOVIE_START: {
+      return state;
+    }
+
+    case actions.SEARCH_MOVIE_ERROR: {
+      return state;
+    }
+
+    case actions.SEARCH_MOVIE_SUCCESS: {
+      const result = action.payload;
+      return state.set('results', List(result.Search));
+    }
+
+  }
+
+  return state;
+}

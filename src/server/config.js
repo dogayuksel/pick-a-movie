@@ -5,7 +5,7 @@ import nconf from 'nconf';
 nconf.env('__');
 
 // For local development with secrets. Check src/common/_secrets.json file.
-// nconf.file('src/common/secrets.json');
+nconf.file('src/common/_secrets.json');
 
 // Remember, never put secrets in default config.
 // Use environment variables for production, and secrets.json for development.
@@ -14,7 +14,7 @@ nconf.defaults({
   // Use appVersion defined in gulp env task or Heroku dyno metadata.
   appVersion: process.env.appVersion || process.env.HEROKU_SLUG_COMMIT,
   defaultLocale: 'en',
-  firebaseUrl: 'https://este.firebaseio.com',
+  /* firebaseUrl: 'https://este.firebaseio.com',*/
   googleAnalyticsId: 'UA-XXXXXXX-X',
   isProduction: process.env.NODE_ENV === 'production',
   locales: ['cs', 'de', 'en', 'es', 'fr', 'pt', 'ro'],

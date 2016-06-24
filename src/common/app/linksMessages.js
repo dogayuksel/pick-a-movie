@@ -13,6 +13,10 @@ export default defineMessages({
     defaultMessage: 'Firebase',
     id: 'app.links.firebase'
   },
+  movies: {
+    defaultMessage: 'Movies',
+    id: 'app.links.movies'
+  },
   home: {
     defaultMessage: 'Home',
     id: 'app.links.home'

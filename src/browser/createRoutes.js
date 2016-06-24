@@ -2,6 +2,7 @@ import App from './app/App.react';
 import Auth from './auth/AuthPage.react';
 import Fields from './fields/FieldsPage.react';
 import Firebase from './firebase/FirebasePage.react';
+import Movies from './movies/MoviesPage.react';
 import Home from './home/HomePage.react';
 import Intl from './intl/IntlPage.react';
 import Me from './me/MePage.react';
@@ -32,6 +33,7 @@ export default function createRoutes(getState) {
       <Route component={Auth} path="login" />
       <Route component={Intl} path="intl" />
       <Route component={Fields} path="fields" />
+      <Route component={Movies} path="movies" />
       <Route component={Firebase} path="firebase" />
       <Route component={Me} onEnter={requireViewer} path="me">
         <Route component={Profile} path="profile" />
