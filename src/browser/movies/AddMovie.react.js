@@ -18,12 +18,30 @@ class AddMovie extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
     searchMovie: PropTypes.func,
+    cleanSearch: PropTypes.func,
+    addMovie: PropTypes.func,
+    viewer: PropTypes.object,
     results: PropTypes.object,
   };
 
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { searchMovie } = this.props;
+    const queryTerm = nextProps.fields.movie.value.trim();
+    if (this.state && queryTerm.length > 2 &&
+        queryTerm !== this.state.fieldValue) {
+      searchMovie({ title: queryTerm });
+    }
+    this.setState({ fieldValue: queryTerm });
+  }
+
+  componentWillUnmount() {
+    const { cleanSearch } = this.props;
+    cleanSearch();
   }
 
   async onFormSubmit(e) {
@@ -65,7 +83,7 @@ class AddMovie extends Component {
   }
 
   render() {
-    const { fields, results } = this.props;
+    const { fields, results, addMovie, viewer} = this.props;
 
     return (
       <div className="add-movie">
@@ -91,7 +109,16 @@ class AddMovie extends Component {
         </form>
         {results ?
          results.map((value) =>
-           <div>{value.Title} / {value.Year}</div>)
+           <div>{value.Title} / {value.Year}
+             {viewer ?
+               <button
+                 onClick={addMovie.bind(this, value.imdbID, viewer.id)}
+               >
+                 Add to my movies
+               </button>
+              : null
+             }
+           </div>)
          : null
         }
       </div>
@@ -110,11 +137,12 @@ AddMovie = fields(AddMovie, {
   getInitialState: () => ({
     // someField: '123',
     // hasCar: true,
-    movie: 'interstellar',
+    // movie: 'interstellar',
   })
 });
 
 export default connect(state => ({
   addMovieModel: state.fields.get('addMovie'),
-  results: state.movies.results
+  results: state.movies.results,
+  viewer: state.users.viewer
 }), movieActions)(AddMovie);

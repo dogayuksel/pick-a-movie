@@ -30,11 +30,6 @@ class FirebasePage extends Component {
         <FormattedMessage {...linksMessages.firebase}>
           {message => <Helmet title={message} />}
         </FormattedMessage>
-        <h2>
-          <a href="https://www.firebase.com/" target="_blank">
-            <img alt="Firebase Logo" height="27" src={require('./FirebaseLogo.png')} width="140" />
-          </a>
-        </h2>
         {viewer ?
           <Profile />
         :

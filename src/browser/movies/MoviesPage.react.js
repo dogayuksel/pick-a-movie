@@ -11,7 +11,7 @@ import { queryFirebase } from '../../common/lib/redux-firebase';
 
 const messages = defineMessages({
   userHere: {
-    defaultMessage: 'There is a user already.',
+    defaultMessage: 'My Movies',
     id: 'firebase.page.userHere'
   }
 });
@@ -34,8 +34,10 @@ class MoviesPage extends Component {
           {message => <Helmet title={message} />}
       </FormattedMessage>
       <AddMovie />
-        {viewer ?
-          <FormattedMessage {...messages.userHere} />
+      {viewer ?
+       <h3>
+         <FormattedMessage {...messages.userHere} />
+       </h3>
         : null
         }
       {movies ?

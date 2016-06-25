@@ -10,7 +10,7 @@ export default defineMessages({
     id: 'app.links.fields'
   },
   firebase: {
-    defaultMessage: 'Firebase',
+    defaultMessage: 'Login',
     id: 'app.links.firebase'
   },
   movies: {

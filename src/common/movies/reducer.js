@@ -49,6 +49,15 @@ export default function moviesReducer(state = new InitialState, action) {
       return state.set('results', List(result.Search));
     }
 
+    case actions.CLEAN_SEARCH: {
+      return state.set('results', null);
+    }
+
+    case actions.ADD_MOVIE_SUCCESS: {
+      console.log(action.payload);
+      return state;
+    }
+
   }
 
   return state;

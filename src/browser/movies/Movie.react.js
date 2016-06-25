@@ -1,3 +1,4 @@
+import './Movie.scss';
 import * as movieActions from '../../common/movies/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
@@ -23,13 +24,23 @@ class Movie extends Component {
     const { movieDetails } = this.props;
 
     return (
-      <div className="movie-detail">
+      <div>
         {movieDetails ?
-          <div>
-            <b>{movieDetails.Title} </b>
-            <b>{movieDetails.Year}</b>
-          </div>
-        : null}
+         <div className="movie-detail">
+           <div className="poster">
+             <img
+               role="presentation"
+               src={movieDetails.Poster}
+               width={120} height={190}
+             />
+           </div>
+           <div className="data">
+             <h4>{movieDetails.Title} {movieDetails.Year}</h4>
+             <p>{movieDetails.Runtime} {movieDetails.Genre}</p>
+             <p>{movieDetails.Plot}</p>
+           </div>
+         </div>
+         : null}
       </div>
     );
   }
