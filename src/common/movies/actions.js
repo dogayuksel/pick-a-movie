@@ -68,14 +68,15 @@ async function fetchMovieById(firebase, imdbID) {
   await firebase.child('movies').child(imdbID).set(answer);
 }
 
-async function addMovieToUser(firebase, imdbID, userID) {
+async function addMovieToUser(firebase, now, imdbID, userID) {
   const movie = {};
-  movie[imdbID] = { favourite: false };
+  movie[imdbID] = { favourite: false,
+                    addedOn: now() };
   await firebase.child('user-movies').child(userID).update(movie);
 }
 
 export function addMovie(imdbID, userID) {
-  return ({ firebase }) => {
+  return ({ firebase, now }) => {
     const getPromise = async () => {
       const query = await firebase
         .child('movies')
@@ -86,7 +87,7 @@ export function addMovie(imdbID, userID) {
           if (checkExists === null) {
             throw new Error('no movie');
           } else {
-            await addMovieToUser(firebase, imdbID, userID);
+            await addMovieToUser(firebase, now, imdbID, userID);
           }
         })
         .catch(async error => {

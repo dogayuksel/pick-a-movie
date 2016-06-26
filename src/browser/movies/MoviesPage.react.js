@@ -56,7 +56,8 @@ MoviesPage = queryFirebase(MoviesPage, props => ({
   path: props.viewer && `user-movies/${props.viewer.id}`,
   // Firebase imperative firebase.com/docs/web/api/query as declarative params.
   params: [
-    ['limitToLast', 10]
+    ['orderByChild', 'addedOn'],
+    ['limitToLast', 7]
   ],
   on: {
     // Value event always rerenders all users. For better granularity, use

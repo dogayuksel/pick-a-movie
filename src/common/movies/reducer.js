@@ -25,8 +25,15 @@ export default function moviesReducer(state = new InitialState, action) {
   switch (action.type) {
 
     case actions.ON_MOVIES_LIST: {
-      const { list } = action.payload;
-      return state.set('list', reviveList(list));
+      let { list } = action.payload;
+      if (list != null) {
+        list = reviveList(list).sortBy(value =>
+          value.userMeta.get('addedOn'), (a, b) => b - a
+        );
+      } else {
+        list = reviveList(list);
+      }
+      return state.set('list', list);
     }
 
     case actions.ON_MOVIE_DETAILS: {
