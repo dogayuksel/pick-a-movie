@@ -119,7 +119,7 @@ export function removeMovie(imdbID, userID) {
         .catch(error => console.log(`no movie${error}`));
     };
     return {
-      type: 'ADD_MOVIE',
+      type: 'REMOVE_MOVIE',
       payload: getPromise()
     };
   };
