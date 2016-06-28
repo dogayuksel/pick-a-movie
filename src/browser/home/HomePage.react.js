@@ -3,13 +3,15 @@ import Helmet from 'react-helmet';
 import React from 'react';
 import linksMessages from '../../common/app/linksMessages';
 import { FormattedHTMLMessage, FormattedMessage, defineMessages } from 'react-intl';
+import { Link } from 'react-router';
 
 const messages = defineMessages({
   intro: {
     defaultMessage: `
       <p>
-        Ahoy, this is the
-        <a target="_blank" href="https://github.com/este/este">Este</a> dev stack.
+        Welcome to the movie picker! <br />
+        Are you having a hard time choosing what to watch? <br />
+        Just start adding movies at your disposal and let me decide for you!
       </p>
     `,
     id: 'home.intro'
@@ -26,8 +28,7 @@ export default class HomePage extends Component {
           {message => <Helmet title={message} />}
         </FormattedMessage>
         <FormattedHTMLMessage {...messages.intro} />
-        {/* Use require for assets. It's super useful for CDN. */}
-        <img alt="50x50 placeholder" src={require('./50x50.png')} />
+        <Link to="/movies">Start adding movies</Link>
       </div>
     );
   }

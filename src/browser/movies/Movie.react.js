@@ -18,14 +18,16 @@ class Movie extends Component {
   static propTypes = {
     movie: PropTypes.object,
     movieDetails: PropTypes.object,
+    viewer: PropTypes.object,
+    removeMovie: PropTypes.func
   };
 
   render() {
-    const { movieDetails } = this.props;
+    const { movieDetails, viewer, removeMovie } = this.props;
 
     return (
       <div>
-        {movieDetails ?
+        {(movieDetails && viewer) ?
          <div className="movie-detail">
            <div className="poster">
              <img
@@ -35,6 +37,13 @@ class Movie extends Component {
              />
            </div>
            <div className="data">
+             <button
+               onClick={removeMovie.bind(this,
+                                         movieDetails.imdbID,
+                                         viewer.id)}
+             >
+               Remove this movies
+             </button>
              <h4>{movieDetails.Title} {movieDetails.Year}</h4>
              <p>{movieDetails.Runtime} {movieDetails.Genre}</p>
              <p>{movieDetails.Plot}</p>
@@ -58,5 +67,6 @@ Movie = queryFirebase(Movie, props => {
 
 export default connect((state, props) => ({
   movieDetails: state.movies &&
-                state.movies.details.get(props.movie.imdb)
+                state.movies.details.get(props.movie.imdb),
+  viewer: state.users.viewer
 }), movieActions)(Movie);

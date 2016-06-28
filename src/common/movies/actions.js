@@ -7,6 +7,9 @@ export const SEARCH_MOVIE_SUCCESS = 'SEARCH_MOVIE_SUCCESS';
 export const ADD_MOVIE_START = 'ADD_MOVIE_START';
 export const ADD_MOVIE_ERROR = 'ADD_MOVIE_ERROR';
 export const ADD_MOVIE_SUCCESS = 'ADD_MOVIE_SUCCESS';
+export const DELETE_MOVIE_START = 'DELETE_MOVIE_START';
+export const DELETE_MOVIE_ERROR = 'DELETE_MOVIE_ERROR';
+export const DELETE_MOVIE_SUCCESS = 'DELETE_MOVIE_SUCCESS';
 
 function prepareSearchURL({ title, year = '', page = '' }) {
   const url = (`http://www.omdbapi.com/?s=${title}&y=${year}&page=${page}&plot=short&r=json`);
@@ -93,9 +96,27 @@ export function addMovie(imdbID, userID) {
         .catch(async error => {
           console.log(`no movie${error}`);
           await fetchMovieById(firebase, imdbID);
-          await addMovieToUser(firebase, imdbID, userID);
+          await addMovieToUser(firebase, now, imdbID, userID);
         });
       return query;
+    };
+    return {
+      type: 'ADD_MOVIE',
+      payload: getPromise()
+    };
+  };
+}
+
+export function removeMovie(imdbID, userID) {
+  return ({ firebase }) => {
+    const getPromise = async () => {
+      await firebase
+        .child('user-movies')
+        .child(userID)
+        .child(imdbID)
+        .remove()
+        .then()
+        .catch(error => console.log(`no movie${error}`));
     };
     return {
       type: 'ADD_MOVIE',

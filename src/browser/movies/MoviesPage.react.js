@@ -30,7 +30,7 @@ class MoviesPage extends Component {
 
     return (
       <div className="firebase-page">
-        <FormattedMessage {...linksMessages.firebase}>
+        <FormattedMessage {...linksMessages.movies}>
           {message => <Helmet title={message} />}
       </FormattedMessage>
       <AddMovie />

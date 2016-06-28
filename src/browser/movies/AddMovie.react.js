@@ -31,17 +31,33 @@ class AddMovie extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { searchMovie } = this.props;
-    const queryTerm = nextProps.fields.movie.value.trim();
-    if (this.state && queryTerm.length > 2 &&
-        queryTerm !== this.state.fieldValue) {
-      searchMovie({ title: queryTerm });
+    const query = {};
+    const title = nextProps.fields.movie.value.trim().toLowerCase();
+    if (title && title.length > 2 && title != 'the') {
+      query.title = title;
+    } else {
+      query.title = '';
     }
-    this.setState({ fieldValue: queryTerm });
+    const year = nextProps.fields.year.value;
+    if (year && year.length === 4 && parseInt(year, 10)) {
+      query.year = year;
+    } else {
+      query.year = '';
+    }
+    if (!this.state && query.title) {
+      searchMovie(query);
+    } else if (query.title &&
+        (query.title !== this.state.title ||
+         query.year !== this.state.year)) {
+      searchMovie(query);
+    }
+    this.setState(query);
   }
 
   componentWillUnmount() {
-    const { cleanSearch } = this.props;
+    const { cleanSearch, fields } = this.props;
     cleanSearch();
+    fields.$reset();
   }
 
   async onFormSubmit(e) {
@@ -83,7 +99,7 @@ class AddMovie extends Component {
   }
 
   render() {
-    const { fields, results, addMovie, viewer} = this.props;
+    const { fields, results, addMovie, viewer } = this.props;
 
     return (
       <div className="add-movie">
