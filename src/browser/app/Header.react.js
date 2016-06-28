@@ -26,6 +26,11 @@ class Header extends Component {
             <FormattedMessage {...linksMessages.movies} />
           </Link>
         </div>
+        <div className="link-item">
+          <Link activeClassName="active" to="/select">
+            <FormattedMessage {...linksMessages.selection} />
+          </Link>
+        </div>        
         {viewer &&
           <div className="link-item">
             <Link activeClassName="active" to="/me">

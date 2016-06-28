@@ -1,0 +1,25 @@
+.candidate-movie {
+
+    flex-grow: 1;
+    width: 10rem;
+    padding: 0 0.6rem 0.8rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .candidate-poster {
+        width: 9rem;
+        height: 14rem;
+    }
+
+    .candidate-title {
+        text-align: center;
+    }
+
+    .remove-candidate-button {
+        position: relative;
+        left: 4rem;
+        top: 1rem;
+        max-width: 40px;
+    }
+}
