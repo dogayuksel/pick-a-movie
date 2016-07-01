@@ -3,6 +3,7 @@ import createLoggerMiddleware from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 
 // Deps.
+import fetch from 'isomorphic-fetch';
 import Firebase from 'firebase';
 import shortid from 'shortid';
 import validate from './validate';
@@ -29,6 +30,7 @@ export default function configureMiddleware(initialState, platformDeps, platform
   const middleware = [
     injectMiddleware({
       ...platformDeps,
+      fetch,
       firebase,
       getUid: () => shortid.generate(),
       now: () => Date.now(), // Consider Firebase.ServerValue.TIMESTAMP
