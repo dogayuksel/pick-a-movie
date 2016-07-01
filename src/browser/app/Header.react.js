@@ -8,11 +8,11 @@ import { connect } from 'react-redux';
 class Header extends Component {
 
   static propTypes = {
-    viewer: PropTypes.object
+    isAuthenticated: PropTypes.bool.isRequired
   };
 
   render() {
-    const { viewer } = this.props;
+    const { isAuthenticated } = this.props;
 
     return (
       <header>
@@ -30,21 +30,21 @@ class Header extends Component {
           <Link activeClassName="active" to="/select">
             <FormattedMessage {...linksMessages.selection} />
           </Link>
-        </div>        
-        {viewer &&
+        </div>
+        {isAuthenticated &&
           <div className="link-item">
             <Link activeClassName="active" to="/me">
               <FormattedMessage {...linksMessages.me} />
             </Link>
           </div>
-        }
-        {!viewer &&
-          <div className="link-item">
-            <Link activeClassName="active" to="/firebase">
-              <FormattedMessage {...linksMessages.login} />
-            </Link>
-          </div>
-        }
+          }
+          {!isAuthenticated &&
+            <div>
+              <Link activeClassName="active" to="/login">
+                <FormattedMessage {...linksMessages.login} />
+              </Link>
+            </div>
+          }
       </header>
     );
   }
@@ -52,5 +52,5 @@ class Header extends Component {
 }
 
 export default connect(state => ({
-  viewer: state.users.viewer
+  isAuthenticated: state.auth.isAuthenticated
 }))(Header);

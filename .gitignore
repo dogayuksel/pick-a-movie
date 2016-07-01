@@ -23,13 +23,14 @@ android/app/libs
 android/keystores/debug.keystore
 buck-out/
 build/
+bundle-stats.json
 firebase-debug.log
 firebase/rules.json
 local.properties
 node_modules/
 npm-debug.log
 project.xcworkspace
-src/common/secrets.json
+src/common/config.json
 src/native/initialState.js
 webpack-assets.json
 xcuserdata

@@ -9,7 +9,7 @@
 
 > You don't have to start with everything. Este is perfect even for plain static pages. You can gracefully add any platform later. Este mission is simple: **Help startups to deliver minimal valuable product asap with the state of the art real-time universal app stack**.
 
-> Nejbližší **školení Este.js** se koná 23. a 24. června v Praze. Cena je 11 500 Kč. Registrujte se přes [learn-reactjs.com](https://learn-reactjs.com/), nebo mi napište: daniel@steigerwald.cz.
+> Další školení Este.js bude 21. a 22. července v Praze. Dva dny za 9 800 Kč. Pokud máte zájem nebo otázky, napište mi: daniel@steigerwald.cz
 
 ## Techniques
 
@@ -67,6 +67,7 @@
 #### Optional
 
 - [firebase-cli](https://firebase.google.com/docs/cli/) `npm install -g firebase-tools`
+- [firebase-bolt](https://github.com/firebase/bolt) `npm install -g firebase-bolt`
 - [react-native-cli](http://facebook.github.io/react-native/docs/getting-started.html) `npm install -g react-native-cli`
 
 If you are using different node versions on your machine, use [nvm](https://github.com/creationix/nvm) to manage them.
@@ -99,7 +100,8 @@ React Native: [Getting Started](https://facebook.github.io/react-native/docs/get
 - `gulp eslint --fix` fix fixable eslint issues
 - `gulp messages-extract` extract messages for translation
 - `gulp messages-check` check missing and unused translations
-- `gulp favicon` create multiplatform favicon
+- `gulp messages-clear` remove unused translations
+- `gulp favicon` create universal favicon
 
 ## Production Tasks
 
@@ -110,6 +112,17 @@ React Native: [Getting Started](https://facebook.github.io/react-native/docs/get
 - `gulp deploy-heroku` deploy [Heroku](https://www.heroku.com/) app
 - `gulp deploy-firebase` deploy [Firebase](https://firebase.google.com/) app
 - `gulp deploy-firebase-database` deploy Firebase database only
+
+## Customize Este App
+
+- set name in `package.json`
+- set locales, firebaseUrl, sentryUrl, etc. in `src/server/config.js`
+- remove unused locale-data from `src/browser/index.js`
+- set routes in `src/browser/createRoutes.js` and `src/native/routes.js`
+- set title, links, etc. in `src/browser/app` and `src/native/app` dirs
+- change `src/common/app/favicons/original/favicon.png`, then `gulp favicon`
+- delete unused app features, todos for example: src/{platform}/todos
+- remove unused reducers from `src/common/configureReducer.js`
 
 ## Documentation
 
@@ -134,12 +147,10 @@ Thanks to [Ryanlanciaux](http://ryanlanciaux.github.io/blog/2014/08/02/using-jes
 
 ## Tips and Tricks
 
-- To test app in offline mode, disable wifi and then run 'gulp' again.
 - Open developer console to check current app state.
 - With functional programming ([SOLID: the next step is Functional](http://blog.ploeh.dk/2014/03/10/solid-the-next-step-is-functional)), we don't need DI containers. We can use plain old [Pure DI](http://blog.ploeh.dk/2014/06/10/pure-di/). Check `injectMiddleware` in `configureStore`.
 - Learn immutable.js, for example [Seq](https://github.com/facebook/immutable-js#lazy-seq). Handy even for native arrays and objects. For example, get object values: `Seq(RoomType).toSet().toJS()`
 - Recommended editor is [Atom](https://atom.io). Check [settings](https://github.com/este/este/wiki/Recommended-Atom.io-Settings).
-- In Chrome, when hot reloading doesn't work, do manual reload (CMD-R) only once. Chrome will update itself ASAP automatically.
 
 ## FAQ
 
