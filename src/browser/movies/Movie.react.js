@@ -42,7 +42,7 @@ class Movie extends Component {
                                          movieDetails.imdbID,
                                          viewer.id)}
              >
-               Remove this movies
+               Remove this from movies
              </button>
              <h4>{movieDetails.Title} {movieDetails.Year}</h4>
              <p>{movieDetails.Runtime} {movieDetails.Genre}</p>

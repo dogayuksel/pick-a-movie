@@ -2,6 +2,7 @@ import './Movies.scss';
 import * as movieActions from '../../common/movies/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
+import Movie from './Movie.react';
 import linksMessages from '../../common/app/linksMessages';
 import { injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
@@ -16,26 +17,26 @@ class PickOne extends Component {
 
   chooseAMovie() {
     const { movies } = this.props;
-    const index = Math.ceil(movies.size * Math.random());
-    console.log(index);
-    console.log(movies.get(index - 1));
+    const index = Math.ceil(movies.size * Math.random()) - 1;
+    this.setState({ selectedMovie: movies.get(index) });
   }
 
   render() {
-    console.log('here renders');
-    const { viewer, movies } = this.props;
+    const selectedMovie = this.state && this.state.selectedMovie;
+
     return (
-      <div className="candidate-movies">
+      <div className="pick-a-movie">
         <button onClick={this.chooseAMovie.bind(this)}>
           PickAMovie For Me!
         </button>
-        {movies.map((value, key) => {
-           console.log(value);
-         })}
+          {selectedMovie &&
+            <div className="selected-movie">
+              <Movie movie={selectedMovie} />
+            </div>
+          }
       </div>
     );
   }
-
 }
 
 PickOne = queryFirebase(PickOne, props => ({

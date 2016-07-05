@@ -17,6 +17,7 @@
 html,
 body {
     height: 100%;
+    width: 100%;
 }
 
 html {
@@ -36,9 +37,11 @@ body {
 }
 
 #app {
-    margin: 1em 2em;
+
+    padding: 1em 2em 1em 3em;
     
     header {
+        padding-top: 1rem;
         padding-bottom: 0.5rem;
         width: 45vw;
         max-width: 420px;

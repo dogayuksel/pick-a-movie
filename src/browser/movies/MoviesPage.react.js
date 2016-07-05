@@ -25,27 +25,25 @@ class MoviesPage extends Component {
 
   render() {
     const { viewer, movies } = this.props;
-    console.log('before render in movies');
-    console.log(movies);
 
     return (
       <div className="firebase-page">
         <FormattedMessage {...linksMessages.movies}>
           {message => <Helmet title={message} />}
-      </FormattedMessage>
-      <AddMovie />
-      {viewer ?
-       <h3>
-         <FormattedMessage {...messages.userHere} />
-       </h3>
-        : null
+        </FormattedMessage>
+        <AddMovie />
+        {viewer ?
+         <h3>
+           <FormattedMessage {...messages.userHere} />
+         </h3>
+         : null
         }
-      {movies ?
-       movies.map((value, key) =>
-         <Movie key={key} movie={value} />
-        )
-       : null
-       }
+         {movies ?
+          movies.map((value, key) =>
+            <Movie key={key} movie={value} />
+          )
+          : null
+         }
       </div>
     );
   }

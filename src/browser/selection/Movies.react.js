@@ -16,16 +16,12 @@ class Movies extends Component {
   };
 
   render() {
-    console.log('here renders');
     const { viewer, movies } = this.props;
     return (
       <div className="candidate-movies">
-        {movies.map((value, key) => {
-          console.log(value);
-          return (
-            <Movie key={key} movie={value} />
-          );
-        })}
+        {movies && movies.map((value, key) =>
+          <Movie key={key} movie={value} />
+        )}
       </div>
     );
   }

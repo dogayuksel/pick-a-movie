@@ -23,26 +23,25 @@ class Movie extends Component {
   };
 
   render() {
-    const { movieDetails, viewer, removeMovie } = this.props;
+    const { movieDetails, viewer/* , removeMovie*/ } = this.props;
 
     return (
       <div>
         {(movieDetails && viewer) ?
          <div className="candidate-movie">
-           <button
-             className="remove-candidate-button"
-             onClick={removeMovie.bind(this,
-                                       movieDetails.imdbID,
-                                       viewer.id)}
+           {/* <button
+           className="remove-candidate-button"
+           onClick={removeMovie.bind(this,
+           movieDetails.imdbID,
+           viewer.id)}
            >
-             X
-           </button>
-          <img
-          className="candidate-poster"
-               role="presentation"
-               src={movieDetails.Poster}
-             />
-
+           X
+           </button> */}
+           <img
+             className="candidate-poster"
+             role="presentation"
+             src={movieDetails.Poster}
+           />
            <div className="candidate-title">
              {`${movieDetails.Title} ${movieDetails.Year}`}
            </div>
