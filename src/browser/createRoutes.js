@@ -16,15 +16,14 @@ import Todos from './todos/TodosPage.react';
 import { IndexRoute, Route } from 'react-router';
 
 export default function createRoutes(getState) {
-  const requireAuth = (nextState, replace) => {
-    // Note how we can read anything from the global app state safely, because
-    // the app state is an immutable value.
-    if (!getState().auth.isAuthenticated) {
-      replace({
-        pathname: '/login',
-        state: { nextPathname: nextState.location.pathname }
-      });
-    }
+  // Auth in Este is lazy, requireViewer allows us to render stale data when
+  // offline and enforce login later on specific action.
+  const requireViewer = (nextState, replace) => {
+    if (getState().users.viewer) return;
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    });
   };
 
   return (
@@ -36,7 +35,7 @@ export default function createRoutes(getState) {
       <Route component={Movies} path="movies" />
       <Route component={Selection} path="select" />
       <Route component={Firebase} path="firebase" />
-      <Route component={Me} onEnter={requireAuth} path="me">
+      <Route component={Me} onEnter={requireViewer} path="me">
         <Route component={Profile} path="profile" />
         <Route component={Settings} path="settings" />
       </Route>
