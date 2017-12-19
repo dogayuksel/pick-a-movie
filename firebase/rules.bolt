@@ -73,6 +73,16 @@ path /users/{uid} is User {
   write() { isViewer(uid) }
 }
 
+path /movies {
+  read() { true }
+  write() { isSignedIn() }
+}
+
+path /user-movies/{uid} {
+  read() { isViewer(uid) }
+  write() { isViewer(uid) }
+}
+
 path /users-emails/{uid} is Email {
   read() { isViewer(uid) }
   write() { isViewer(uid) }
