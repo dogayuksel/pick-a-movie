@@ -12,7 +12,8 @@ export default function createInitialState() {
       .set('appName', config.appName)
       .set('appVersion', config.appVersion)
       .set('firebaseUrl', config.firebaseUrl)
-      .set('sentryUrl', config.sentryUrl),
+      .set('sentryUrl', config.sentryUrl)
+      .set('omdbSecret', config.omdbSecret),
     device: deviceReducer(undefined, {}),
     intl: intlReducer(undefined, {})
       .set('currentLocale', config.defaultLocale)

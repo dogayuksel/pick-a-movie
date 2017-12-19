@@ -11,13 +11,19 @@ export const DELETE_MOVIE_START = 'DELETE_MOVIE_START';
 export const DELETE_MOVIE_ERROR = 'DELETE_MOVIE_ERROR';
 export const DELETE_MOVIE_SUCCESS = 'DELETE_MOVIE_SUCCESS';
 
-function prepareSearchURL({ title, year = '', page = '' }) {
-  const url = (`http://www.omdbapi.com/?s=${title}&y=${year}&page=${page}&plot=short&r=json`);
+
+function prepareSearchURL({
+  title,
+  year = '',
+  page = '',
+  omdbSecret
+}) {
+  const url = (`http://www.omdbapi.com/?apikey=${omdbSecret}&s=${title}&y=${year}&page=${page}&plot=short&r=json`);
   return url;
 }
 
-function prepareFetchURL(imdbID) {
-  const url = (`http://www.omdbapi.com/?i=${imdbID}&plot=short&r=json`);
+function prepareFetchURL(imdbID, omdbSecret) {
+  const url = (`http://www.omdbapi.com/?apikey=${omdbSecret}&i=${imdbID}&plot=short&r=json`);
   return url;
 }
 
@@ -63,8 +69,8 @@ export function searchMovie(params) {
   };
 }
 
-async function fetchMovieById(firebase, imdbID) {
-  const query = await fetch(prepareFetchURL(imdbID), {
+async function fetchMovieById(firebase, imdbID, omdbSecret) {
+  const query = await fetch(prepareFetchURL(imdbID, omdbSecret), {
     method: 'GET'
   });
   const answer = await query.json();
@@ -78,7 +84,7 @@ async function addMovieToUser(firebase, now, imdbID, userID) {
   await firebase.child('user-movies').child(userID).update(movie);
 }
 
-export function addMovie(imdbID, userID) {
+export function addMovie(imdbID, userID, omdbSecret) {
   return ({ firebase, now }) => {
     const getPromise = async () => {
       const query = await firebase
@@ -95,7 +101,7 @@ export function addMovie(imdbID, userID) {
         })
         .catch(async error => {
           console.log(`no movie${error}`);
-          await fetchMovieById(firebase, imdbID);
+          await fetchMovieById(firebase, imdbID, omdbSecret);
           await addMovieToUser(firebase, now, imdbID, userID);
         });
       return query;

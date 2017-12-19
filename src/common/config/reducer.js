@@ -4,6 +4,7 @@ const InitialState = Record({
   appName: '',
   appVersion: '',
   firebaseUrl: '',
+  omdbSecret: '',
   sentryUrl: ''
 }, 'config');
 

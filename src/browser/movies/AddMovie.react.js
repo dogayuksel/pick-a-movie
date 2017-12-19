@@ -30,7 +30,7 @@ class AddMovie extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { searchMovie } = this.props;
+    const { searchMovie, omdbSecret } = this.props;
     const query = {};
     const title = nextProps.fields.movie.value.trim().toLowerCase();
     if (title && title.length > 2 && title != 'the') {
@@ -47,9 +47,9 @@ class AddMovie extends Component {
     if (!this.state && query.title) {
       searchMovie(query);
     } else if (query.title &&
-        (query.title !== this.state.title ||
-         query.year !== this.state.year)) {
-      searchMovie(query);
+               (query.title !== this.state.title ||
+                query.year !== this.state.year)) {
+      searchMovie({ ...query, omdbSecret });
     }
     this.setState(query);
   }
@@ -62,13 +62,14 @@ class AddMovie extends Component {
 
   async onFormSubmit(e) {
     e.preventDefault();
-    const { fields, searchMovie } = this.props;
+    const { fields, searchMovie, omdbSecret } = this.props;
     // Disable form.
     fields.$disabled.setValue(true);
     const exampleAction = async (values) => new Promise((resolve, reject) => {
       if (values.movie.trim()) {
         searchMovie({ title: values.movie.trim(),
-                      year: values.year.trim()
+                      year: values.year.trim(),
+                      omdbSecret,
         });
         setTimeout(resolve, 1000);
         return;
@@ -99,7 +100,7 @@ class AddMovie extends Component {
   }
 
   render() {
-    const { fields, results, addMovie, viewer } = this.props;
+    const { fields, results, addMovie, viewer, omdbSecret } = this.props;
 
     return (
       <div className="add-movie">
@@ -127,11 +128,12 @@ class AddMovie extends Component {
          results.map((value) =>
            <div>{value.Title} / {value.Year}
              {viewer ?
-               <button
-                 onClick={addMovie.bind(this, value.imdbID, viewer.id)}
-               >
-                 Add to my movies
-               </button>
+              <button
+                onClick={addMovie.bind(
+                    this, value.imdbID, viewer.id, omdbSecret)}
+              >
+                Add to my movies
+              </button>
               : null
              }
            </div>)
@@ -160,5 +162,6 @@ AddMovie = fields(AddMovie, {
 export default connect(state => ({
   addMovieModel: state.fields.get('addMovie'),
   results: state.movies.results,
-  viewer: state.users.viewer
+  viewer: state.users.viewer,
+  omdbSecret: state.config.omdbSecret,
 }), movieActions)(AddMovie);
