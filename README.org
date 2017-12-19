@@ -1,5 +1,5 @@
 * Pick-a-movie App
-A simple web application that helps you choose which the movie to watch.
+A simple web application that helps you choose which the movie to watch. [[https://movie-base.firebaseapp.com/][demo link]]
 
 ** How to use it
 - First sign in
