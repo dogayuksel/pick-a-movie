@@ -6,7 +6,7 @@ nconf.env('__');
 
 // For local development, we can override defaults easily. Rename
 // src/common/_config.json to src/common/config.json and uncomment next line.
-nconf.file('src/common/_secrets.json');
+nconf.file('src/common/secrets.json');
 
 // Remember, never put secrets in the source code. Use environment variables for
 // production or src/common/config.json for development instead.
