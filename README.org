@@ -1,0 +1,45 @@
+* Pick-a-movie App
+A simple web application that helps you choose which the movie to watch.
+
+** How to use it
+*** First sign in.
+*** Then add movies to make a shortlist.
+    The app will remember your shortlist next time you login.
+
+*** Finally go to select tab and click 'PickAMovie For Me!'
+*** The app will randomly choose a movie for you and there is no going back : )
+
+* Development
+** clone the repository
+** npm install
+** run the following command to start the development server
+#+begin_src
+gulp
+#+end_src
+* Other gulp tasks
+** Dev Tasks
+- `gulp` run web app in development mode
+- `gulp ios` run iOS app in development mode
+- `gulp android` run Android app in development mode
+- `gulp -p` run web app in production mode
+- `gulp mocha` run mocha unit tests
+- `gulp mocha-watch` continuous test running for TDD
+- `gulp eslint` eslint
+- `gulp eslint --fix` fix fixable eslint issues
+- `gulp messages-extract` extract messages for translation
+- `gulp messages-check` check missing and unused translations
+- `gulp messages-clear` remove unused translations
+- `gulp favicon` create universal favicon
+
+** Production Tasks
+- `gulp build -p` build app for production
+- `npm test` run all checks and tests
+- `node src/server` start app, remember to set NODE_ENV and SERVER_URL
+- `gulp to-html` render app to HTML for static hosting like [Firebase](https://www.firebase.com/features.html#features-hosting)
+- `gulp deploy-heroku` deploy [Heroku](https://www.heroku.com/) app
+- `gulp deploy-firebase` deploy [Firebase](https://firebase.google.com/) app
+- `gulp deploy-firebase-database` deploy Firebase database only
+
+* Credit
+** Based on the este repository made by Daniel Steigerwald, [[twitter.com/steida][https://twitter.com/steida]] and the este community. ([[https://github.com/este/este/wiki][este repository]])
+** You want to build a movie application? Check out [[http://omdbapi.com/][Open Movie Database]]!
