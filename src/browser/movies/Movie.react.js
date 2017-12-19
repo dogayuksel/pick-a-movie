@@ -1,17 +1,10 @@
+/* eslint-disable react/jsx-indent */
 import './Movie.scss';
 import * as movieActions from '../../common/movies/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
-import { FormattedMessage, defineMessages } from 'react-intl';
 import { connect } from 'react-redux';
 import { queryFirebase } from '../../common/lib/redux-firebase';
-
-const messages = defineMessages({
-  userHere: {
-    defaultMessage: 'There is a user already.',
-    id: 'firebase.page.userHere'
-  }
-});
 
 class Movie extends Component {
 
@@ -38,9 +31,9 @@ class Movie extends Component {
            </div>
            <div className="data">
              <button
-               onClick={removeMovie.bind(this,
-                                         movieDetails.imdbID,
-                                         viewer.id)}
+               onClick={() => removeMovie(
+                   movieDetails.imdbID,
+                   viewer.id)}
              >
                Remove this from movies
              </button>

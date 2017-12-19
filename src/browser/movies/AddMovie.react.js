@@ -1,17 +1,10 @@
+/* eslint-disable react/jsx-indent */
 import * as movieActions from '../../common/movies/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
-import { FormattedMessage, defineMessages } from 'react-intl';
 import { connect } from 'react-redux';
 import { fields } from '../../common/lib/redux-fields';
 import { focusInvalidField, ValidationError } from '../../common/lib/validation';
-
-const messages = defineMessages({
-  userHere: {
-    defaultMessage: 'There is a user already.',
-    id: 'firebase.page.userHere'
-  }
-});
 
 class AddMovie extends Component {
 
@@ -20,6 +13,7 @@ class AddMovie extends Component {
     searchMovie: PropTypes.func,
     cleanSearch: PropTypes.func,
     addMovie: PropTypes.func,
+    omdbSecret: PropTypes.string,
     viewer: PropTypes.object,
     results: PropTypes.object,
   };
@@ -33,7 +27,7 @@ class AddMovie extends Component {
     const { searchMovie, omdbSecret } = this.props;
     const query = {};
     const title = nextProps.fields.movie.value.trim().toLowerCase();
-    if (title && title.length > 2 && title != 'the') {
+    if (title && title.length > 2 && title !== 'the') {
       query.title = title;
     } else {
       query.title = '';
@@ -120,7 +114,7 @@ class AddMovie extends Component {
               Want to add a movie
             </button>
             {fields.$error.value &&
-              <b className="error-message">{fields.$error.value.message}</b>
+             <b className="error-message">{fields.$error.value.message}</b>
             }
           </fieldset>
         </form>
@@ -129,8 +123,8 @@ class AddMovie extends Component {
            <div>{value.Title} / {value.Year}
              {viewer ?
               <button
-                onClick={addMovie.bind(
-                    this, value.imdbID, viewer.id, omdbSecret)}
+                onClick={() => addMovie(
+                    value.imdbID, viewer.id, omdbSecret)}
               >
                 Add to my movies
               </button>

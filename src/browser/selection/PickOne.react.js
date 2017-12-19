@@ -1,10 +1,9 @@
+/* eslint-disable react/jsx-indent */
 import './Movies.scss';
 import * as movieActions from '../../common/movies/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
 import Movie from './Movie.react';
-import linksMessages from '../../common/app/linksMessages';
-import { injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import { queryFirebase } from '../../common/lib/redux-firebase';
 
@@ -26,14 +25,14 @@ class PickOne extends Component {
 
     return (
       <div className="pick-a-movie">
-        <button onClick={this.chooseAMovie.bind(this)}>
+        <button onClick={() => this.chooseAMovie()}>
           PickAMovie For Me!
         </button>
-          {selectedMovie &&
-            <div className="selected-movie">
-              <Movie movie={selectedMovie} />
-            </div>
-          }
+        {selectedMovie &&
+         <div className="selected-movie">
+           <Movie movie={selectedMovie} />
+         </div>
+        }
       </div>
     );
   }

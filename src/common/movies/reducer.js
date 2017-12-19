@@ -48,7 +48,6 @@ export default function moviesReducer(state = new InitialState, action) {
     }
 
     case actions.SEARCH_MOVIE_ERROR: {
-      console.log(action.payload);
       return state;
     }
 

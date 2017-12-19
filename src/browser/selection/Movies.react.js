@@ -3,8 +3,7 @@ import * as movieActions from '../../common/movies/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
 import Movie from './Movie.react';
-import linksMessages from '../../common/app/linksMessages';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { queryFirebase } from '../../common/lib/redux-firebase';
 
@@ -16,7 +15,7 @@ class Movies extends Component {
   };
 
   render() {
-    const { viewer, movies } = this.props;
+    const { movies } = this.props;
     return (
       <div className="candidate-movies">
         {movies && movies.map((value, key) =>

@@ -20,7 +20,7 @@ export default defineMessages({
   selection: {
     defaultMessage: 'Select',
     id: 'app.links.selection'
-  },  
+  },
   home: {
     defaultMessage: 'Home',
     id: 'app.links.home'

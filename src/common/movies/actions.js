@@ -11,6 +11,8 @@ export const DELETE_MOVIE_START = 'DELETE_MOVIE_START';
 export const DELETE_MOVIE_ERROR = 'DELETE_MOVIE_ERROR';
 export const DELETE_MOVIE_SUCCESS = 'DELETE_MOVIE_SUCCESS';
 
+/* eslint-disable no-console */
+
 
 function prepareSearchURL({
   title,
@@ -100,7 +102,7 @@ export function addMovie(imdbID, userID, omdbSecret) {
           }
         })
         .catch(async error => {
-          console.log(`no movie${error}`);
+          console.log(`no movie: ${error}`);
           await fetchMovieById(firebase, imdbID, omdbSecret);
           await addMovieToUser(firebase, now, imdbID, userID);
         });
@@ -122,7 +124,7 @@ export function removeMovie(imdbID, userID) {
         .child(imdbID)
         .remove()
         .then()
-        .catch(error => console.log(`no movie${error}`));
+        .catch(error => console.log(`no movie: ${error}`));
     };
     return {
       type: 'REMOVE_MOVIE',
@@ -130,3 +132,5 @@ export function removeMovie(imdbID, userID) {
     };
   };
 }
+
+/* eslint-enable no-console */

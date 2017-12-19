@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import * as movieActions from '../../common/movies/actions';
 import Movie from './Movie.react';
 import AddMovie from './AddMovie.react';
@@ -38,12 +39,12 @@ class MoviesPage extends Component {
          </h3>
          : null
         }
-         {movies ?
-          movies.map((value, key) =>
-            <Movie key={key} movie={value} />
-          )
-          : null
-         }
+        {movies ?
+         movies.map((value, key) =>
+           <Movie key={key} movie={value} />
+         )
+         : null
+        }
       </div>
     );
   }

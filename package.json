@@ -1,5 +1,5 @@
 {
-  "name": "este",
+  "name": "movie-base",
   "private": true,
   "//": "Use gulp for dev. It's cross platform.",
   "scripts": {
