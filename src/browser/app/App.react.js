@@ -53,7 +53,6 @@ class App extends Component {
         {/* Pass location to ensure header active links are updated. */}
         <Header location={location} />
         {children}
-        <Footer />
       </div>
     );
   }
