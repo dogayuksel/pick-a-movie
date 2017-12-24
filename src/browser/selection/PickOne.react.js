@@ -43,7 +43,6 @@ class PickOne extends Component {
   render() {
     const { movies } = this.props;
     const { selectedMovie } = this.state;
-    console.log(movies);
 
     return (
       <div className="pick-a-movie">
