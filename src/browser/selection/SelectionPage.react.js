@@ -4,7 +4,18 @@ import React from 'react';
 import Movies from './Movies.react';
 import PickOne from './PickOne.react';
 import linksMessages from '../../common/app/linksMessages';
+import { Link } from 'react-router';
 import { injectIntl, intlShape } from 'react-intl';
+import { connect } from 'react-redux';
+import { FormattedMessage, defineMessages } from 'react-intl';
+import './SelectionPage.scss';
+
+const messages = defineMessages({
+  loginFirst: {
+    defaultMessage: 'Login to see the movies on your list',
+    id: 'selection.page.userHere'
+  }
+});
 
 class SelectionPage extends Component {
 
@@ -13,18 +24,31 @@ class SelectionPage extends Component {
   };
 
   render() {
-    const { intl } = this.props;
-    const title = intl.formatMessage(linksMessages.todos);
+    const { intl, viewer } = this.props;
+    const title = intl.formatMessage(linksMessages.selection);
 
     return (
-      <div className="todos-page">
+      <div className="selection-page">
         <Helmet title={title} />
-        <Movies />
-        <PickOne />
+        { viewer ?
+          <div>
+            <PickOne />
+            <Movies />
+          </div>
+          :
+          <Link to="/login">
+            <FormattedMessage {...messages.loginFirst} />
+          </Link>
+        }
+
       </div>
     );
   }
 
 }
 
-export default injectIntl(SelectionPage);
+SelectionPage = injectIntl(SelectionPage);
+
+export default connect(state => ({
+  viewer: state.users.viewer
+}))(SelectionPage);
