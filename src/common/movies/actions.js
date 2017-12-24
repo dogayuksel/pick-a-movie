@@ -54,14 +54,8 @@ export function cleanSearch() {
 export function searchMovie(params) {
   return ({ fetch, dispatch }) => {
     const getPromise = async () => {
-      const query = new Promise((resolve) => {
-        resolve(fetch(prepareSearchURL(params), { method: 'GET' }));
-      });
-      const answer = await query.timeout(900).then(value => value.json());
-      if (answer.Response === 'False') {
-        dispatch(cleanSearch);
-        throw new Error("can't find any matching movies");
-      }
+      const query = await fetch(prepareSearchURL(params), { method: 'GET' });
+      const answer = await query.json();
       return answer;
     };
     return {

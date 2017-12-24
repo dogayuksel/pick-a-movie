@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-indent */
+import './AddMovie.scss';
+import FieldError from '../lib/FieldError.react';
 import * as movieActions from '../../common/movies/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
@@ -21,6 +23,10 @@ class AddMovie extends Component {
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.state = {
+      disabled: false,
+      error: null,
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,83 +62,74 @@ class AddMovie extends Component {
 
   async onFormSubmit(e) {
     e.preventDefault();
-    const { fields, searchMovie, omdbSecret } = this.props;
-    // Disable form.
-    fields.$disabled.setValue(true);
-    const exampleAction = async (values) => new Promise((resolve, reject) => {
-      if (values.movie.trim()) {
-        searchMovie({ title: values.movie.trim(),
-                      year: values.year.trim(),
-                      omdbSecret,
-        });
-        setTimeout(resolve, 1000);
-        return;
-      }
-      setTimeout(() => {
-        reject({
-          reason: new ValidationError('required', { prop: 'movie' })
-        });
-      }, 1000);
+    const { fields, searchMovie, cleanSearch, omdbSecret } = this.props;
+    this.setState({ disabled: true });
+    const values = fields.$values();
+    await searchMovie({ title: values.movie.trim(),
+                        year: values.year.trim(),
+                        omdbSecret,
     });
-    try {
-      // For simple flat forms we can use handy fields.$values() helper.
-      const values = fields.$values();
-      // console.log(values); // eslint-disable-line no-console
-      // For complex nested forms we can get whole model via redux connect.
-      // const allValues = this.propsfieldsPageModel && this.propsfieldsPageModel.toJS();
-      // console.log(allValues); // eslint-disable-line no-console
-      await exampleAction(values);
-    } catch (error) {
-      fields.$disabled.setValue(false);
-      fields.$error.setValue(error.reason);
-      focusInvalidField(this, error.reason);
-      throw error;
-    }
-
-    // Reset all (even nested) fieldsPage fields.
+    this.setState({ disabled: false });
     fields.$reset();
   }
 
   render() {
     const { fields, results, addMovie, viewer, omdbSecret } = this.props;
+    const { disabled, error } = this.state;
 
     return (
       <div className="add-movie">
-        <form onSubmit={this.onFormSubmit}>
-          <fieldset disabled={fields.$disabled.value}>
+        <form
+          onSubmit={this.onFormSubmit}>
+          <fieldset
+            disabled={disabled}
+            className="add-movie-fields"
+          >
+            <FieldError error={error} prop="someField" />
             <input
               {...fields.movie}
+              className="add-movie-fields--movie-name"
+              placeholder="movie name"
               maxLength={30}
               type="text"
             />
             <input
               {...fields.year}
+              className="add-movie-fields--movie-year"
+              placeholder="year"
               maxLength={4}
               type="text"
             />
             <button type="submit">
-              Want to add a movie
+              search movie
             </button>
             {fields.$error.value &&
              <b className="error-message">{fields.$error.value.message}</b>
             }
           </fieldset>
         </form>
-        {results ?
-         results.map((value) =>
-           <div>{value.Title} / {value.Year}
-             {viewer ?
-              <button
-                onClick={() => addMovie(
-                    value.imdbID, viewer.id, omdbSecret)}
-              >
-                Add to my movies
-              </button>
-              : null
-             }
-           </div>)
-         : null
-        }
+        <div className="search-results">
+          {results ?
+           results.map((value) =>
+             <div
+               key={value.imdbID}
+               className="search-results--item"
+             >
+               {value.Title} / {value.Year}
+               {viewer ?
+                <span
+                  className="search-results--add-button"
+                  onClick={() => addMovie(
+                      value.imdbID, viewer.id, omdbSecret)}
+                  >
+                  add
+                </span>
+                : null
+               }
+             </div>)
+           : null
+          }
+        </div>
       </div>
     );
   }
