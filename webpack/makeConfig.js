@@ -16,7 +16,7 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(webpackIso
 // http://webpack.github.io/docs/configuration.html#devtool
 // const devtools = 'cheap-module-eval-source-map';
 // TODO: https://github.com/webpack/webpack/issues/2145
-const devtools = 'eval-source-map';
+const devtools = 'source-map';
 
 const loaders = {
   css: '',
