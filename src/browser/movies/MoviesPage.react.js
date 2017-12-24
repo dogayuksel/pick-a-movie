@@ -7,6 +7,7 @@ import Helmet from 'react-helmet';
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import linksMessages from '../../common/app/linksMessages';
+import { injectIntl, intlShape } from 'react-intl';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { connect } from 'react-redux';
 import { queryFirebase } from '../../common/lib/redux-firebase';
@@ -14,15 +15,15 @@ import { queryFirebase } from '../../common/lib/redux-firebase';
 const messages = defineMessages({
   userHere: {
     defaultMessage: 'My Movies',
-    id: 'firebase.page.userHere'
+    id: 'movies.page.userHere'
   },
   loginFirst: {
     defaultMessage: 'Login to start adding movies',
-    id: 'firebase.page.loginFirst'
+    id: 'movies.page.loginFirst'
   },
   emptyList: {
     defaultMessage: "Seems like you don't have any movies. Start of by searching and adding one.",
-    id: 'firebase.page.emptyList'
+    id: 'movies.page.emptyList'
   }
 });
 
@@ -34,10 +35,12 @@ class MoviesPage extends Component {
   };
 
   render() {
-    const { viewer, movies } = this.props;
+    const { viewer, movies, intl } = this.props;
+    const title = intl.formatMessage(linksMessages.movies);
 
     return (
       <div className="firebase-page">
+        <Helmet title={title} />
         <FormattedMessage {...linksMessages.movies}>
           {message => <Helmet title={message} />}
         </FormattedMessage>
@@ -81,6 +84,8 @@ MoviesPage = queryFirebase(MoviesPage, props => ({
     value: snap => props.onMoviesList(snap.val())
   }
 }));
+
+MoviesPage = injectIntl(MoviesPage);
 
 export default connect(state => ({
   viewer: state.users.viewer,
