@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 const messages = defineMessages({
   welcome: {
-    defaultMessage: 'Hi {displayName}. This is your secret page.',
+    defaultMessage: 'Hi {displayName}.',
     id: 'me.page.welcome'
   },
   linkToProfile: {
@@ -43,18 +43,18 @@ class MePage extends Component {
         <FormattedMessage {...linksMessages.me}>
           {message => <Helmet title={message} />}
         </FormattedMessage>
-        <ul>
-          <li>
+        {/* <ul>
+            <li>
             <Link activeClassName="active" to="/me/profile">
-              <FormattedMessage {...messages.linkToProfile} />
+            <FormattedMessage {...messages.linkToProfile} />
             </Link>
-          </li>
-          <li>
+            </li>
+            <li>
             <Link activeClassName="active" to="/me/settings">
-              <FormattedMessage {...messages.linkToSettings} />
+            <FormattedMessage {...messages.linkToSettings} />
             </Link>
-          </li>
-        </ul>
+            </li>
+            </ul> */}
         {children ||
           <div>
             {profileImageURL &&
