@@ -110,9 +110,9 @@ class AddMovie extends Component {
         </form>
         <div className="search-results">
           {results ?
-           results.map((value) =>
+           results.map((value, key) =>
              <div
-               key={value.imdbID}
+               key={`${value.imdbID}-${key}`}
                className="search-results--item"
              >
                {value.Title} / {value.Year}
@@ -121,7 +121,7 @@ class AddMovie extends Component {
                   className="search-results--add-button"
                   onClick={() => addMovie(
                       value.imdbID, viewer.id, omdbSecret)}
-                  >
+                >
                   add
                 </span>
                 : null
