@@ -20,12 +20,12 @@ function prepareSearchURL({
   page = '',
   omdbSecret
 }) {
-  const url = (`http://www.omdbapi.com/?apikey=${omdbSecret}&s=${title}&y=${year}&page=${page}&plot=short&r=json`);
+  const url = (`https://www.omdbapi.com/?apikey=${omdbSecret}&s=${title}&y=${year}&page=${page}&plot=short&r=json`);
   return url;
 }
 
 function prepareFetchURL(imdbID, omdbSecret) {
-  const url = (`http://www.omdbapi.com/?apikey=${omdbSecret}&i=${imdbID}&plot=short&r=json`);
+  const url = (`https://www.omdbapi.com/?apikey=${omdbSecret}&i=${imdbID}&plot=short&r=json`);
   return url;
 }
 
