@@ -56,15 +56,15 @@ type Email {
 
 // Paths
 
-path /hello-world is HelloWorld {
-  // Anyone can create, read, update. No one can delete.
-  create() { true }
-  read() { true }
-  update() { true }
-}
+// path /hello-world is HelloWorld {
+//   // Anyone can create, read, update. No one can delete.
+//   create() { true }
+//   read() { true }
+//   update() { true }
+// }
 
 path /users {
-  read() { true } // Reading all users allowed for demo.
+  read() { false }
   index() { ["authenticatedAt"] }
 }
 
@@ -81,6 +81,7 @@ path /movies {
 path /user-movies/{uid} {
   read() { isViewer(uid) }
   write() { isViewer(uid) }
+  index() { ["addedOn"] }
 }
 
 path /users-emails/{uid} is Email {
