@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import React, { PropTypes } from 'react';
 import linksMessages from '../../common/app/linksMessages';
 import { FormattedMessage, defineMessages } from 'react-intl';
-import { Link } from 'react-router';
+/* import { Link } from 'react-router';*/
 import { connect } from 'react-redux';
 
 const messages = defineMessages({

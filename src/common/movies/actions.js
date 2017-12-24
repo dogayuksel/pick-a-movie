@@ -52,7 +52,7 @@ export function cleanSearch() {
 }
 
 export function searchMovie(params) {
-  return ({ fetch, dispatch }) => {
+  return ({ fetch }) => {
     const getPromise = async () => {
       const query = await fetch(prepareSearchURL(params), { method: 'GET' });
       const answer = await query.json();

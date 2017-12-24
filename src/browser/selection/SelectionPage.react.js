@@ -1,13 +1,17 @@
 import Component from 'react-pure-render/component';
 import Helmet from 'react-helmet';
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Movies from './Movies.react';
 import PickOne from './PickOne.react';
 import linksMessages from '../../common/app/linksMessages';
 import { Link } from 'react-router';
-import { injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
-import { FormattedMessage, defineMessages } from 'react-intl';
+import {
+  FormattedMessage,
+  defineMessages,
+  injectIntl,
+  intlShape
+} from 'react-intl';
 import './SelectionPage.scss';
 
 const messages = defineMessages({
@@ -20,7 +24,8 @@ const messages = defineMessages({
 class SelectionPage extends Component {
 
   static propTypes = {
-    intl: intlShape.isRequired
+    intl: intlShape.isRequired,
+    viewer: PropTypes.object
   };
 
   render() {
@@ -30,7 +35,7 @@ class SelectionPage extends Component {
     return (
       <div className="selection-page">
         <Helmet title={title} />
-        { viewer ?
+        {viewer ?
           <div>
             <PickOne />
             <Movies />

@@ -7,8 +7,7 @@ import Helmet from 'react-helmet';
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import linksMessages from '../../common/app/linksMessages';
-import { injectIntl, intlShape } from 'react-intl';
-import { FormattedMessage, defineMessages } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { queryFirebase } from '../../common/lib/redux-firebase';
 
@@ -31,7 +30,8 @@ class MoviesPage extends Component {
 
   static propTypes = {
     viewer: PropTypes.object,
-    movies: PropTypes.object
+    movies: PropTypes.object,
+    intl: PropTypes.object
   };
 
   render() {

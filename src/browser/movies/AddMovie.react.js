@@ -6,7 +6,7 @@ import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { fields } from '../../common/lib/redux-fields';
-import { focusInvalidField, ValidationError } from '../../common/lib/validation';
+/* import { focusInvalidField, ValidationError } from '../../common/lib/validation';*/
 
 class AddMovie extends Component {
 
@@ -62,7 +62,7 @@ class AddMovie extends Component {
 
   async onFormSubmit(e) {
     e.preventDefault();
-    const { fields, searchMovie, cleanSearch, omdbSecret } = this.props;
+    const { fields, searchMovie, omdbSecret } = this.props;
     this.setState({ disabled: true });
     const values = fields.$values();
     await searchMovie({ title: values.movie.trim(),
@@ -80,7 +80,8 @@ class AddMovie extends Component {
     return (
       <div className="add-movie">
         <form
-          onSubmit={this.onFormSubmit}>
+          onSubmit={this.onFormSubmit}
+        >
           <fieldset
             disabled={disabled}
             className="add-movie-fields"

@@ -31,7 +31,7 @@ class PickOne extends Component {
     super(props);
     this.state = {
       selectedMovie: null,
-    }
+    };
   }
 
   chooseAMovie() {
