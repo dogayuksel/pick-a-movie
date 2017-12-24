@@ -5,6 +5,7 @@ import AddMovie from './AddMovie.react';
 import Component from 'react-pure-render/component';
 import Helmet from 'react-helmet';
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import linksMessages from '../../common/app/linksMessages';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { connect } from 'react-redux';
@@ -14,6 +15,14 @@ const messages = defineMessages({
   userHere: {
     defaultMessage: 'My Movies',
     id: 'firebase.page.userHere'
+  },
+  loginFirst: {
+    defaultMessage: 'Login to start adding movies',
+    id: 'firebase.page.loginFirst'
+  },
+  emptyList: {
+    defaultMessage: "Seems like you don't have any movies. Start of by searching and adding one.",
+    id: 'firebase.page.emptyList'
   }
 });
 
@@ -34,16 +43,24 @@ class MoviesPage extends Component {
         </FormattedMessage>
         <AddMovie />
         {viewer ?
-         <h3>
-           <FormattedMessage {...messages.userHere} />
-         </h3>
-         : null
-        }
-        {movies ?
-         movies.map((value, key) =>
-           <Movie key={key} movie={value} />
-         )
-         : null
+         <div>
+           <h3>
+             <FormattedMessage {...messages.userHere} />
+           </h3>
+           {movies ?
+            movies.map((value, key) =>
+              <Movie key={key} movie={value} />
+            )
+            :
+            <p>
+              <FormattedMessage {...messages.emptyList} />
+            </p>
+           }
+         </div>
+         :
+         <Link to="/login">
+           <FormattedMessage {...messages.loginFirst} />
+         </Link>
         }
       </div>
     );
