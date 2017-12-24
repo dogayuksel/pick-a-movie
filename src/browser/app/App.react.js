@@ -37,7 +37,7 @@ class App extends Component {
       <div className="container">
         <Helmet
           htmlAttributes={{ lang: currentLocale }}
-          titleTemplate="%s - Este.js"
+          titleTemplate="%s - MovieBase"
           meta={[
             ...bootstrap4Metas,
             {

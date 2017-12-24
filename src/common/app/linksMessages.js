@@ -14,11 +14,11 @@ export default defineMessages({
     id: 'app.links.firebase'
   },
   movies: {
-    defaultMessage: 'Movies',
+    defaultMessage: 'Add Movies',
     id: 'app.links.movies'
   },
   selection: {
-    defaultMessage: 'Select',
+    defaultMessage: 'Pick One',
     id: 'app.links.selection'
   },
   home: {
