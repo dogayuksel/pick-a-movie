@@ -4,8 +4,21 @@ import * as movieActions from '../../common/movies/actions';
 import Component from 'react-pure-render/component';
 import React, { PropTypes } from 'react';
 import Movie from './Movie.react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { queryFirebase } from '../../common/lib/redux-firebase';
+import { FormattedMessage, defineMessages } from 'react-intl';
+
+const messages = defineMessages({
+  addMoreMovies: {
+    defaultMessage: 'Add more then two movies',
+    id: 'selection.page.addMoreMovies'
+  },
+  addMovies: {
+    defaultMessage: 'Add some movies to your list',
+    id: 'selection.page.addMoreMovies'
+  }
+});
 
 class PickOne extends Component {
 
@@ -14,6 +27,13 @@ class PickOne extends Component {
     movies: PropTypes.object
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedMovie: null,
+    }
+  }
+
   chooseAMovie() {
     const { movies } = this.props;
     const index = Math.ceil(movies.size * Math.random()) - 1;
@@ -21,13 +41,29 @@ class PickOne extends Component {
   }
 
   render() {
-    const selectedMovie = this.state && this.state.selectedMovie;
+    const { movies } = this.props;
+    const { selectedMovie } = this.state;
+    console.log(movies);
 
     return (
       <div className="pick-a-movie">
-        <button onClick={() => this.chooseAMovie()}>
-          PickAMovie For Me!
-        </button>
+        {movies ?
+         <div>
+           {movies.size > 1 ?
+            <button onClick={() => this.chooseAMovie()}>
+              PickAMovie For Me!
+            </button>
+            :
+            <Link to="/movies">
+              <FormattedMessage {...messages.addMoreMovies} />
+            </Link>
+           }
+         </div>
+         :
+         <Link to="/movies">
+           <FormattedMessage {...messages.addMovies} />
+         </Link>
+        }
         {selectedMovie &&
          <div className="selected-movie">
            <Movie movie={selectedMovie} />
